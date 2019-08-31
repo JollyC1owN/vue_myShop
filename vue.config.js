@@ -18,6 +18,7 @@ module.exports = {
   // 配置代理
   devServer: {
     proxy: {
+      // 请求地址以/api开头
       '/api': {
         target: 'http://localhost:5000',
         changeOrigin: true, //是否支持跨域
