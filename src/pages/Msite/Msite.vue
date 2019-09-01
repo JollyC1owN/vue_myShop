@@ -1,7 +1,7 @@
 <template>
   <section class="msite">
     <!--首页头部-->
-    <Header title="宏福苑">
+    <Header :title="address.name || '定位中...'">
       <span class="header_search" slot="left">
         <i class="iconfont icon-sousuo"></i>
       </span>
@@ -124,11 +124,18 @@
 </template>
 
 <script>
+import { mapState } from 'vuex'
 import Shops from '../../components/Shops/Shops'
 export default {
   name: 'Msite',
   data() {
     return {}
+  },
+  mounted() {
+    this.$store.dispatch('getShops')
+  },
+  computed: {
+    ...mapState(['address'])
   },
   components: {
     Shops
