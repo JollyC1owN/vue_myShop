@@ -41,13 +41,19 @@ import Swiper from 'swiper'
 import 'swiper/dist/css/swiper.css'
 import { mapState } from 'vuex'
 import Shops from '../../components/Shops/Shops'
+/*解决swiper的bug
+    创建Swiper时机：必须在列表页面显示之后
+    1、watch+ nextTick解决轮播图的bug
+    2、callback + nextTick解决轮播图的bug
+    3、
+*/
 
 export default {
   name: 'Msite',
   data() {
     return {}
   },
-  mounted() {
+  async mounted() {
     this.$store.dispatch('getShops')
     this.$store.dispatch('getCategorys')
   },
@@ -80,6 +86,8 @@ export default {
       return bigArr
     }
   },
+
+  // 1、watch+ nextTick解决轮播图的bug
   watch: {
     // vue的机制：更新状态数据===>调用监视的回调==>异步更新界面
     // 监视categorys的数据变化：数组请求到

@@ -14,13 +14,19 @@ export default {
     }
   },
   // 获取分类列表的数组
-  async getCategorys ({ commit }) {
+  async getCategorys ({ commit }, callback) {
     // 1、发送异步请求数据
     const result = await reqGetCategorys()
     if (result.code === 0) {
       const categorys = result.data
       // 2、拿到数据更新state中的数据
       commit(RECEIVE_CATEGORYS, categorys)
+      // 在commit之后，因为commit更新数据，
+      // 在数据更新之后调用，类似于watch
+      /* callback只是一个形参名
+        严格来说传了个函数，并且存在。再调用。防止没有报错 
+      */
+      typeof callback === 'function' && callback()
     }
   },
   // 获取商家的数组

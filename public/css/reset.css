@@ -176,3 +176,8 @@ body {
   text-overflow: ellipsis;
   white-space: nowrap;
 }
+
+* {
+  /* touch-action: none; */
+  touch-action: pan-y;
+}

@@ -41,15 +41,32 @@ import Swiper from 'swiper'
 import 'swiper/dist/css/swiper.css'
 import { mapState } from 'vuex'
 import Shops from '../../components/Shops/Shops'
+/*解决swiper的bug--创建swiper轮播图有问题
+    创建Swiper时机：必须在列表页面显示之后
+    1、watch+ nextTick解决轮播图的bug
+    2、callback + nextTick解决轮播图的bug
+    3、利用dispatch返回的promise
+         promise对象是在状态更新切界面更新之后才产生promise成功的结果
+*/
 
 export default {
   name: 'Msite',
   data() {
     return {}
   },
-  mounted() {
+  // 利用：dispatch返回的是一个promise对象
+  // promise对象是在状态更新切界面更新之后才产生promise成功的结果
+  async mounted() {
     this.$store.dispatch('getShops')
-    this.$store.dispatch('getCategorys')
+    // 只有到await得到一个成功状态的promise之后，才执行下面的代码
+    await this.$store.dispatch('getCategorys')
+    new Swiper('.swiper-container', {
+      loop: true, // 循环模式
+      // 如果需要分页器
+      pagination: {
+        el: '.swiper-pagination'
+      }
+    })
   },
   computed: {
     ...mapState(['address', 'categorys']),
@@ -76,28 +93,7 @@ export default {
           smallArr = []
         }
       })
-
       return bigArr
-    }
-  },
-  watch: {
-    // vue的机制：更新状态数据===>调用监视的回调==>异步更新界面
-    // 监视categorys的数据变化：数组请求到
-    categorys() {
-      // 将回调延迟到下次DOM更新循环之后执行，在修改数据后立即使用它
-      this.$nextTick(() => {
-        // 创建Swiper时机：必须在列表页面显示之后
-        // swiper使用：
-        // 先下载安装，然后引入swiper、css，再new 一个swiper
-        // 参数：第一个：容器；第二个配置对象
-        new Swiper('.swiper-container', {
-          loop: true, // 循环模式
-          // 如果需要分页器
-          pagination: {
-            el: '.swiper-pagination'
-          }
-        })
-      })
     }
   },
   components: {
