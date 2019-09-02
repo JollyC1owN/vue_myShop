@@ -4,16 +4,26 @@
       <div class="login_header">
         <h2 class="login_logo">硅谷外卖</h2>
         <div class="login_header_title">
-          <a href="javascript:;" class="on">短信登录</a>
-          <a href="javascript:;">密码登录</a>
+          <a href="javascript:;" :class="{on:loginWay}" @click="loginWay = true">短信登录</a>
+          <a href="javascript:;" :class="{on:!loginWay}" @click="loginWay = false">密码登录</a>
         </div>
       </div>
       <div class="login_content">
         <form>
-          <div class="on">
+          <div :class="{on:loginWay}">
             <section class="login_message">
-              <input type="tel" maxlength="11" placeholder="手机号" />
-              <button disabled="disabled" class="get_verification">获取验证码</button>
+              <input type="tel" maxlength="11" placeholder="手机号" v-model="phone" />
+              <!-- disabled:限制用户是否可以重复点击，
+              当不是一个正确手机号的时候
+              或者计数器还大于0的时候---》解决倒计时的时候点击 开启多个定时器，造成倒计数错误
+              不能点击
+              -->
+              <button
+                :disabled="!isRightPhone || computeTime>0"
+                class="get_verification"
+                :class="{right_phone_number:isRightPhone}"
+                @click.prevent="sendCode"
+              >{{computeTime>0?`短信已发送(${computeTime})`:'获取验证码'}}</button>
             </section>
             <section class="login_verification">
               <input type="tel" maxlength="8" placeholder="验证码" />
@@ -23,16 +33,20 @@
               <a href="javascript:;">《用户服务协议》</a>
             </section>
           </div>
-          <div>
+          <div :class="{on:!loginWay}">
             <section>
               <section class="login_message">
                 <input type="tel" maxlength="11" placeholder="手机/邮箱/用户名" />
               </section>
               <section class="login_verification">
-                <input type="tel" maxlength="8" placeholder="密码" />
-                <div class="switch_button off">
-                  <div class="switch_circle"></div>
-                  <span class="switch_text">...</span>
+                <input :type="isShowPwd ? 'text' :'password'" maxlength="8" placeholder="密码" />
+                <div
+                  class="switch_button"
+                  @click="isShowPwd = !isShowPwd"
+                  :class="isShowPwd ? 'on':'off'"
+                >
+                  <div class="switch_circle" :class="{right:isShowPwd}"></div>
+                  <span class="switch_text">{{isShowPwd?'abc':'...'}}</span>
                 </div>
               </section>
               <section class="login_message">
@@ -53,7 +67,41 @@
 </template>
 
 <script>
-export default {}
+export default {
+  data() {
+    return {
+      // 登录方式切换：true：短信登录，false：密码登录
+      loginWay: 'true',
+      // 手机号
+      phone: '',
+      // 倒计时剩余时间
+      computeTime: 0,
+      // 显示/隐藏密码  false:隐藏   true：显示
+      isShowPwd: false
+    }
+  },
+  computed: {
+    // 判断是否是一个正确的手机号
+    isRightPhone() {
+      const reg = /^1\d{10}$/
+      return reg.test(this.phone)
+    }
+  },
+  methods: {
+    // 发送验证码
+    sendCode() {
+      // 在点击后，computeTime设置为最大值、
+      this.computeTime = 10
+      // 启动一个定时器来每隔一秒 computeTime-1
+      const intervalId = setInterval(() => {
+        this.computeTime--
+        if (this.computeTime === 0) {
+          clearInterval(intervalId)
+        }
+      }, 1000)
+    }
+  }
+}
 </script>
 
 <style lang='stylus' rel='stylesheet/stylus' scoped>
@@ -133,6 +181,9 @@ export default {}
               font-size 14px
               background transparent
 
+              &.right_phone_number
+                color black
+
           .login_verification
             position relative
             margin-top 16px
@@ -177,6 +228,9 @@ export default {}
                 background #fff
                 box-shadow 0 2px 4px 0 rgba(0, 0, 0, 0.1)
                 transition transform 0.3s
+
+                &.right
+                  transform translateX(27px)
 
           .login_hint
             margin-top 12px

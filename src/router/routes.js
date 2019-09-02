@@ -7,6 +7,7 @@ export default [
   {
     path: '/msite',
     component: Msite,
+    // meta:它会保存在$route中，在组件中可以通过$route.meta.xxx读取
     meta: {
       showFooter: true
     }

@@ -9,9 +9,12 @@ import axios from "axios"
 import qs from 'qs'
 
 // 配置默认值
-// 您可以指定将应用于每个请求的配置默认值。
+// 你可以指定将应用于每个请求的配置默认值。
 // 全局axios默认值
 // axios.defaults.baseURL = 'http://localhost:5000'
+
+// 请求超时的语法，超过20秒进入失败的逻辑
+axios.defaults.timeout = 20000
 
 // 请求拦截器
 // 接受两个参数：一个成功的回调，一个失败的回调

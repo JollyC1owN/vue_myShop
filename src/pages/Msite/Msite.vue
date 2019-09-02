@@ -12,8 +12,8 @@
     <!--首页导航-->
     <nav class="msite_nav">
       <div class="swiper-container">
-        <div class="swiper-wrapper">
-          <div class="swiper-slide" v-for="(categorys, index) in categorysArr" :key="index">
+        <div class="swiper-wrapper" v-if="categorys.length>0">
+          <div class="swiper-slide" v-for="(categorys, index) in categorysArr2" :key="index">
             <a
               href="javascript:"
               class="link_to_food"
@@ -28,7 +28,10 @@
           </div>
         </div>
         <!-- Add Pagination -->
-        <div class="swiper-pagination"></div>
+        <div class="swiper-pagination" v-if="categorys.length>0"></div>
+        <div class="swiper-container" v-else>
+          <img src="./images/msite_back.svg" alt="loading" />
+        </div>
       </div>
     </nav>
     <!--首页附近商家-->
@@ -37,6 +40,8 @@
 </template>
 
 <script>
+import chunk from 'lodash/chunk'
+// import _ from 'lodash'
 import Swiper from 'swiper'
 import 'swiper/dist/css/swiper.css'
 import { mapState } from 'vuex'
@@ -78,6 +83,11 @@ export default {
       })
 
       return bigArr
+    },
+    // 调用第三方库进行分组
+    categorysArr2() {
+      // return _.chunk(this.categorys, 8)
+      return chunk(this.categorys, 8)
     }
   },
   watch: {
