@@ -14,7 +14,7 @@ import qs from 'qs'
 // axios.defaults.baseURL = 'http://localhost:5000'
 
 // 请求超时的语法，超过20秒进入失败的逻辑
-axios.defaults.timeout = 20000
+// axios.defaults.timeout = 20000
 
 // 请求拦截器
 // 接受两个参数：一个成功的回调，一个失败的回调
@@ -32,9 +32,9 @@ axios.interceptors.request.use(config => {
 axios.interceptors.response.use(response => {
 	return response.data
 }, error => {
+	alert(error.message)
 	// 中断promise链，必须传一个空的回调，否则报错
 	return new Promise(() => { })
-	console.log(error)
 })
 
 export default axios

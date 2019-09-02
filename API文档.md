@@ -1,6 +1,7 @@
 # 接口文档
 
 ## 目录：
+
 [1、根据经纬度获取位置详情](#1根据经纬度获取位置详情)<br/>
 [2、获取食品分类列表](#2获取食品分类列表)<br/>
 [3、根据经纬度获取商铺列表](#3根据经纬度获取商铺列表)<br/>
@@ -13,24 +14,27 @@
 [10、用户登出](#10用户登出)<br/>
 
 ## 1、根据经纬度获取位置详情
-     
-### 请求URL：
-	http://localhost:5000/position/:geohash
+
+### 请求 URL：
+
+    http://localhost:5000/position/:geohash
 
 ### 示例：
+
 [http://localhost:5000/position/40.10038,116.36867](http://localhost:5000/position/40.10038,116.36867)
 
 ### 请求方式：
-	GET
+
+    GET
 
 ### 参数类型：param
 
-	|参数		|是否必选 |类型     |说明
-	|geohash    |Y       |string   |经纬度
+    |参数		|是否必选 |类型     |说明
+    |geohash    |Y       |string   |经纬度
 
 ### 返回示例：
 
-	{
+    {
       "code": 0,
       "data": {
         "address": "北京市昌平区337省道",
@@ -44,19 +48,23 @@
 
 ## 2、获取食品分类列表
 
-### 请求URL：
-	http://localhost:5000/index_category
+### 请求 URL：
+
+    http://localhost:5000/index_category
 
 ### 请求方式：
-	GET
+
+    GET
 
 ### 参数类型：
-	无
+
+    无
 
 ### 返回示例：
-	{
-	  "code": 0,
-	  data: [
+
+    {
+      "code": 0,
+      data: [
               {
                 id: 1,
                 is_in_serving: true,
@@ -81,29 +89,33 @@
               },
               ... 共n条数据
             ]
-	}
-
+    }
 
 ## 3、根据经纬度获取商铺列表
 
-### 请求URL：
-	http://localhost:5000/shops
+### 请求 URL：
+
+    http://localhost:5000/shops
 
 ### 示例：
+
 [http://localhost:5000/shops?latitude=40.10038&longitude=116.36867](http://localhost:5000/shops?latitude=40.10038&longitude=116.36867)
 
 ### 请求方式：
-	GET
+
+    GET
 
 ### 参数类型：query
-	|参数          |是否必选  |类型     |说明|
-	|latitude      |Y        |string   |纬度|
-	|longitude     |Y       |string    |经度|
+
+    |参数          |是否必选  |类型     |说明|
+    |latitude      |Y        |string   |纬度|
+    |longitude     |Y       |string    |经度|
 
 ### 返回示例：
-	{
-	  "code": 0,
-	  data: [
+
+    {
+      "code": 0,
+      data: [
               {
                 name: "肯德基",
                 address: "上海市宝山区淞宝路155弄18号星月国际商务广场1层",
@@ -179,25 +191,28 @@
                 ],
               }
             ]
-	}
-
+    }
 
 ## 4、根据经纬度和关键字搜索商铺列表
 
-### 请求URL：
-	http://localhost:5000/search_shops
-	例子: http://localhost:5000/search_shops?keyword=test&geohash=40.10038,116.36867
-	
+### 请求 URL：
+
+    http://localhost:5000/search_shops
+    例子: http://localhost:5000/search_shops?keyword=test&geohash=40.10038,116.36867
+
 ### 请求方式：
+
     GET
 
 ### 参数类型：query
-	|参数          |是否必选  |类型     |说明|
-	|geohash      |Y       |string    |经纬度
-	|keyword      |Y       |string    |关键字
+
+    |参数          |是否必选  |类型     |说明|
+    |geohash      |Y       |string    |经纬度
+    |keyword      |Y       |string    |关键字
 
 ### 返回示例：
-	{
+
+    {
       "code": 0,
       "data": [
         {
@@ -369,14 +384,17 @@
     }
 
 ## 5、获取一次性验证码
-     
-### 请求URL：
-	http://localhost:5000/captcha
+
+### 请求 URL：
+
+    http://localhost:5000/captcha
 
 ### 请求方式：
-	GET
+
+    GET
 
 ### 返回示例：
+
     <svg xmlns="http://www.w3.org/2000/svg" width="150" height="50">
       <path d="M18 7 C93 15,83 48,133 44" stroke="#76dfdf" fill="none"/>
       <path fill="#a18ae4"
@@ -390,24 +408,25 @@
             d="M115.54 40.11L115.59 40.16L113.14 33.25L113.17 33.29Q108.85 20.74 102.91 14.35L102.96 14.40L102.90 14.33Q104.99 15.47 107.58 16.08L107.53 16.03L107.59 16.09Q112.75 22.40 117.09 35.15L117.02 35.08L117.09 35.15Q120.09 26.99 120.77 25.40L120.80 25.42L120.82 25.44Q123.19 19.82 126.01 16.51L125.88 16.38L125.84 16.33Q127.96 16.02 130.59 15.14L130.67 15.23L130.60 15.16Q126.13 19.87 123.09 27.10L123.06 27.08L122.98 26.99Q121.68 30.76 117.99 40.27L117.88 40.17L117.97 40.26Q117.41 40.26 116.84 40.23L116.86 40.25L116.73 40.12Q116.16 40.12 115.59 40.16ZM120.66 42.64L120.66 42.64L120.65 42.63Q123.37 32.56 124.93 28.52L124.95 28.54L124.91 28.50Q128.05 20.95 132.47 16.08L132.41 16.02L132.41 16.01Q131.30 16.32 129.21 17.04L129.20 17.03L130.52 15.88L130.34 15.70Q130.96 15.06 131.57 14.41L131.54 14.39L131.67 14.52Q128.85 15.51 125.85 16.08L125.84 16.07L125.76 15.99Q121.37 21.31 117.49 32.77L117.53 32.81L117.48 32.76Q113.78 22.59 110.58 18.21L110.61 18.24L110.77 18.39Q110.27 18.20 109.40 18.05L109.32 17.98L109.48 18.13Q109.19 17.70 107.59 15.64L107.61 15.66L107.67 15.72Q104.67 14.97 101.97 13.56L101.97 13.55L101.94 13.52Q108.58 20.62 112.95 33.41L112.84 33.30L112.83 33.28Q114.15 37.05 115.33 40.62L115.33 40.62L115.30 40.59Q115.79 40.78 116.63 40.67L116.60 40.64L116.53 40.57Q116.89 41.27 117.57 42.60L117.54 42.57L117.55 42.58Q118.32 42.44 119.05 42.51L119.07 42.54L119.07 42.53Q119.98 42.72 120.74 42.72Z"/>
     </svg>
 
-
 ## 6、用户名密码登陆
-     
-### 请求URL：
-	http://localhost:5000/login_pwd
+
+### 请求 URL：
+
+    http://localhost:5000/login_pwd
 
 ### 请求方式：
-	POST
+
+    POST
 
 ### 参数类型: 请求体
 
-	|参数		|是否必选 |类型     |说明
-	|name       |Y       |string   |用户名
-	|pwd        |Y       |string   |密码
-	|captcha    |Y       |string   |图片验证码
-
+    |参数		|是否必选 |类型     |说明
+    |name       |Y       |string   |用户名
+    |pwd        |Y       |string   |密码
+    |captcha    |Y       |string   |图片验证码
 
 ### 返回示例：
+
     * 登陆成功
       {
         "code": 0,
@@ -422,50 +441,55 @@
         "msg": "用户名或密码不正确!"
       }
 
-
 ## 7、发送短信验证码
-     
-### 请求URL：
-	http://localhost:5000/sendcode
+
+### 请求 URL：
+
+    http://localhost:5000/sendcode
 
 ### 示例：
+
 [http://localhost:5000/sendcode?phone=13716962779](http://localhost:5000/sendcode?phone=13716962779)
 
 ### 请求方式：
-	GET
+
+    GET
 
 ### 参数类型: query
 
-	|参数		|是否必选 |类型     |说明
-	|phone       |Y       |string   |手机号
+    |参数		|是否必选 |类型     |说明
+    |phone       |Y       |string   |手机号
 
 ### 返回示例：
-	成功
+
+    成功
       {
         "code": 0,
       }
-	失败
-	  {
-		"code": 1, 
-		msg: '短信验证码发送失败'
+    失败
+      {
+    	"code": 1,
+    	msg: '短信验证码发送失败'
       }
-      
-      
+
 ## 8、手机号验证码登陆
-     
-### 请求URL：
-	http://localhost:5000/login_sms
+
+### 请求 URL：
+
+    http://localhost:5000/login_sms
 
 ### 请求方式：
-	POST
+
+    POST
 
 ### 参数类型: 请求体
 
-	|参数		|是否必选 |类型     |说明
-	|phone       |Y       |string   |手机号
-	|code        |Y       |string   |验证码
+    |参数		|是否必选 |类型     |说明
+    |phone       |Y       |string   |手机号
+    |code        |Y       |string   |验证码
 
 ### 返回示例：
+
     * 登陆成功
       {
         "code": 0,
@@ -479,17 +503,20 @@
         "code": 1,
         "msg": "手机号或验证码不正确"
       }
-      
+
 ### 9、根据会话获取用户信息
 
-#### 请求URL：
-	http://localhost:5000/userinfo
+#### 请求 URL：
+
+    http://localhost:5000/userinfo
 
 #### 请求方式：
-	GET
+
+    GET
 
 #### 返回示例：
-	* 获取成功
+
+    * 获取成功
       {
         "code": 0,
         "data": {
@@ -502,15 +529,17 @@
         "code": 1,
         "msg": "请先登陆"
       }
-      
 
 ### 10、用户登出
 
-#### 请求URL：
-	http://localhost:5000/logout
+#### 请求 URL：
+
+    http://localhost:5000/logout
 
 #### 请求方式：
-	GET
+
+    GET
 
 #### 返回示例：
+
     {code: 0}

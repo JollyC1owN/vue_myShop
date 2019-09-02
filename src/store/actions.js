@@ -1,5 +1,5 @@
 import { reqAddress, reqGetShops, reqGetCategorys } from '../api/index'
-import { RECEIVE_ADDRESS, RECEIVE_SHOPS, RECEIVE_CATEGORYS } from './mutayion-types'
+import { RECEIVE_ADDRESS, RECEIVE_SHOPS, RECEIVE_CATEGORYS, RECEIVE_USER, RESET_USER } from './mutayion-types'
 
 export default {
   // 获取地理位置
@@ -39,5 +39,13 @@ export default {
       // 2、拿到数据更新state中的数据
       commit(RECEIVE_SHOPS, shops)
     }
+  },
+  // 保存用户的同步action
+  saveUser ({ commit }, user) {
+    commit(RECEIVE_USER, user)
+  },
+  // 退出登录
+  logout ({ commit }) {
+    commit(RESET_USER)
   }
 }

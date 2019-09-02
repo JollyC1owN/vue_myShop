@@ -14,7 +14,6 @@ export const reqGetCategorys = () => ajax.get(BASE + '/index_category')
 
 
 // 根据经纬度获取商铺列表
-
 export const reqGetShops = ({ latitude, longitude }) => ajax({
   method: 'GET',
   url: BASE + '/shops',
@@ -24,4 +23,15 @@ export const reqGetShops = ({ latitude, longitude }) => ajax({
   }
 })
 
+// 发送短信验证码
+export const reqSendCode = (phone) => ajax.get(BASE + '/sendcode', {
+  params: {
+    phone
+  }
+})
 
+// 验证用户名、密码、验证码
+export const reqPwdLogin = ({ name, pwd, captcha }) => ajax.post(BASE + '/login_pwd', { name, pwd, captcha })
+
+// 手机号和短信验证码登录
+export const reqSmsLogin = (phone, code) => ajax.post(BASE + '/login_sms', { phone, code })

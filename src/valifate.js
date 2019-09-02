@@ -1,0 +1,31 @@
+import Vue from 'vue'
+import VeeValidate from 'vee-validate'
+import zh_CN from 'vee-validate/dist/locale/zh_CN'
+Vue.use(VeeValidate)  // 定义了一个全局的指令 validate    即所有组件都可以用：v-validate
+
+// 指定本地提示信息
+VeeValidate.Validator.localize('zh_CN', {
+	messages: zh_CN.messages,
+	attributes: {
+		phone: '手机号',
+		code: '验证码',
+		name: '用户名',
+		pwd: '密码',
+		captcha: '验证码'
+	}
+})
+
+// 自定义验证规则
+// Validator：验证器   extend：扩展
+VeeValidate.Validator.extend('mobile', {
+	/* messages: {
+		 zh_CN:field => field + '必须是11位手机号码----',
+	 },*/
+	// 验证的方法: 验证通过返回true, 返回false验证不通过
+	validate: value => {
+		return /^1\d{10}$/.test(value)
+	},
+	// 得到错误信息的方法 --提示信息
+	// field要在上面的attributes中读取，在标签中的name属性一一对应
+	getMessage: field => field + '必须是11位手机号码'
+})
