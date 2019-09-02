@@ -34,6 +34,7 @@ axios.interceptors.response.use(response => {
 }, error => {
 	// 中断promise链，必须传一个空的回调，否则报错
 	return new Promise(() => { })
+	console.log(error)
 })
 
 export default axios
