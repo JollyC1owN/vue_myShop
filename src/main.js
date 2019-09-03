@@ -3,7 +3,7 @@ import { Button } from 'mint-ui'
 import App from './App.vue'
 import router from './router'
 import store from './store'
-
+import './mock/mock-server'
 import './valifate'
 // 需要全局注册的组件
 import Header from './components/Header/Header.vue'

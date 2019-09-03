@@ -51,3 +51,10 @@ export const reqAutoLogin = () => ajax({
     needToken: true
   }
 })
+/* 下面的三个请求不需要代理来发请求，所以不用加BASE */
+// 获取商家信息
+export const reqShopInfo = () => ajax('/info')
+// 获取上架评价数组
+export const reqShopRatings = () => ajax('/ratings')
+// 获取上架商品数组
+export const reqShopGoods = () => ajax('/goods')

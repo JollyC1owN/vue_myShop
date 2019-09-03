@@ -12,6 +12,7 @@
     "babel-plugin-component": "^1.1.1",
     "core-js": "^2.6.5",
     "mint-ui": "^2.2.13",
+    "mockjs": "^1.0.1-beta3",
     "stylus": "^0.54.7",
     "stylus-loader": "^3.0.2",
     "swiper": "^4.5.0",

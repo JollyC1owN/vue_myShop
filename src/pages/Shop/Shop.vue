@@ -25,6 +25,11 @@ export default {
   data() {
     return {}
   },
+  mounted() {
+    this.$store.dispatch('getGoods')
+    this.$store.dispatch('getRatings')
+    this.$store.dispatch('getInfo')
+  },
   components: {
     ShopHeader
   }

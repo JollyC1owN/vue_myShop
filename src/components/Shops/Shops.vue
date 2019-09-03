@@ -78,7 +78,10 @@ export default {
     return {}
   },
   computed: {
-    ...mapState(['shops'])
+    // ...mapState(['shops'])
+    ...mapState({
+      shops: state => state.msite.shops
+    })
   },
   components: {}
 }

@@ -57,7 +57,13 @@ export default {
     this.$store.dispatch('getCategorys')
   },
   computed: {
-    ...mapState(['address', 'categorys']),
+    // 第一种写法
+    // ...mapState(['address', 'categorys']),
+    // 第二种写法
+    ...mapState({
+      address: state => state.msite.address,
+      categorys: state => state.msite.categorys
+    }),
     /* 分类的二维数组
         小数组的最大长度为8
         每个小数组只能往大数组中存放一次：引用地址的问题

@@ -5,3 +5,6 @@ export const RECEIVE_USER = 'receive_user' // 接收当前登录用户
 export const RECEIVE_TOKEN = 'receive_token' // 接收当前登录用户的 token
 export const RESET_USER = 'reset_user' // 退出登录清空当前登录用户
 export const RESET_TOKEN = 'reset_token' // 退出登录清空当前登录用户的token
+export const RECEIVE_GOODS = 'receive_goods' // 商品列表
+export const RECEIVE_RATINGS = 'receive_ratings' // 商家评价列表
+export const RECEIVE_INFO = 'receive_info' // 商家信息
