@@ -1,5 +1,5 @@
-import { reqAddress, reqGetShops, reqGetCategorys } from '../api/index'
-import { RECEIVE_ADDRESS, RECEIVE_SHOPS, RECEIVE_CATEGORYS, RECEIVE_USER, RESET_USER } from './mutayion-types'
+import { reqAddress, reqGetShops, reqGetCategorys, reqAutoLogin } from '../api/index'
+import { RECEIVE_ADDRESS, RECEIVE_SHOPS, RECEIVE_CATEGORYS, RECEIVE_USER, RESET_USER, RECEIVE_TOKEN, RESET_TOKEN } from './mutayion-types'
 
 export default {
   // 获取地理位置
@@ -42,10 +42,34 @@ export default {
   },
   // 保存用户的同步action
   saveUser ({ commit }, user) {
-    commit(RECEIVE_USER, user)
+    // 保存用户信息中的token
+    const token = user.token
+    // 把token保存到localStorage中
+    localStorage.setItem('token_key', token)
+    // 把token保存到state中
+    commit(RECEIVE_TOKEN, token)
+    // 删除user中的token,用户user中只保存用户的信息，不再保存token，token单独保存了
+    delete user.token
+    commit(RECEIVE_USER, { user })
   },
   // 退出登录
   logout ({ commit }) {
+    // 把user、token、以及localStorage中的token都清空
     commit(RESET_USER)
+    commit(RESET_TOKEN)
+    localStorage.removeItem('token_key')
+  },
+
+  // 自动登录
+  async autoLogin ({ commit, state }) {
+    // 判断一下，有token，就携带着token去发自动登录的请求
+    if (state.token) {
+      const result = await reqAutoLogin()
+      if (result.code === 0) {
+        const user = result.data
+        // 保存用户
+        commit(RECEIVE_USER, { user })
+      }
+    }
   }
 }

@@ -11,6 +11,7 @@ export default {
   name: 'App',
   mounted() {
     this.$store.dispatch('getAddress')
+    this.$store.dispatch('autoLogin')
   },
   components: {
     FooterGuide

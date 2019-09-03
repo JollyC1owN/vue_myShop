@@ -115,6 +115,7 @@ export default {
       MessageBox.confirm('确认要退出吗?').then(
         action => {
           this.$store.dispatch('logout')
+          console.log(action)
         },
         () => {}
       )
@@ -180,6 +181,7 @@ export default {
               vertical-align text-top
 
           .icon-mobile-number
+            margin-left 10px
             font-size 14px
             color #fff
 

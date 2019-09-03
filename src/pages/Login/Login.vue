@@ -93,7 +93,7 @@
                 <img
                   ref="captcha"
                   class="get_verification"
-                  src="http://localhost:5000/captcha"
+                  src="http://localhost:4000/captcha"
                   @click="updateCaptcha"
                   alt="captcha"
                 />
@@ -119,7 +119,7 @@ export default {
   data() {
     return {
       // 登录方式切换：true：短信登录，false：密码登录
-      loginWay: 'true',
+      loginWay: false,
       phone: '', // 手机号
       computeTime: 0, // 倒计时剩余时间
       isShowPwd: false, // 显示/隐藏密码  false:隐藏   true：显示
@@ -168,43 +168,45 @@ export default {
       let result
       // 根据当前显示的登录方式进行验证
       if (loginWay) {
-        //短信登录
-        result = await reqSmsLogin(phone, code)
-        // 在发送请求之后，暂定倒计时
-        this.computeTime = 0
         names = ['phone', 'code']
       } else {
-        result = await reqPwdLogin({ name, pwd, captcha })
-        // 如果登录失败，刷新验证码、清空输入框中的内容
-        if (result.code === 1) {
-          this.updateCaptcha()
-          this.captcha = ''
-        }
-        names = ['用户名', '密码', '验证码']
-      }
-      // 根据请求的结果进行下一步响应处理
-      if (result.code === 0) {
-        const user = result.data
-        // 把用户信息存到state中
-        this.$store.dispatch('saveUser', user)
-        // 跳转到个人中心
-        this.$router.replace('/profile')
-      } else {
-        MessageBox.alert(result.msg)
+        names = ['name', 'pwd', 'captcha']
       }
       // 对所有表单项进行验证；不管当前登录方式是哪种，所有的表单项都要验证
       // const success = await this.$validator.validateAll()
-      // const success = await this.$validator.validateAll(names) // 对指定的所有表单项进行验证
-      // // 验证返回的是promise对象，是一个布尔值
-      // if (success) {
-      //   console.log('表单验证通过，发送登录请求')
-      // }
+      const success = await this.$validator.validateAll(names) // 对指定的所有表单项进行验证
+      // 验证返回的是promise对象，是一个布尔值
+      if (success) {
+        if (loginWay) {
+          //短信登录
+          result = await reqSmsLogin(phone, code)
+          // 在发送请求之后，暂定倒计时
+          this.computeTime = 0
+        } else {
+          result = await reqPwdLogin({ name, pwd, captcha })
+          // 如果登录失败，刷新验证码、清空输入框中的内容
+          if (result.code === 1) {
+            this.updateCaptcha()
+            this.captcha = ''
+          }
+        }
+        // 根据请求的结果进行下一步响应处理
+        if (result.code === 0) {
+          const user = result.data
+          // 把用户信息存到state中
+          this.$store.dispatch('saveUser', user)
+          // 跳转到个人中心
+          this.$router.replace('/profile')
+        } else {
+          MessageBox.alert(result.msg)
+        }
+      }
     },
     // 验证码刷新发请求
     updateCaptcha() {
       const time = Date.now()
       // 指定的src请求的地址，需要每次请求的地址不能一样，所以加一个时间戳
-      this.$refs.captcha.src = 'http://localhost:5000/captcha?time=' + time
+      this.$refs.captcha.src = 'http://localhost:4000/captcha?time=' + time
     }
   }
 }

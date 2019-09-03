@@ -20,7 +20,7 @@ module.exports = {
     proxy: {
       // 请求地址以/api开头
       '/api': {
-        target: 'http://localhost:5000',
+        target: 'http://localhost:4000',
         changeOrigin: true, //是否支持跨域
         pathRewrite: {
           '^/api': '', // rewrite path

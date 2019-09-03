@@ -543,3 +543,7 @@
 #### 返回示例：
 
     {code: 0}
+
+<!-- 自动登录 -->
+
+http://localhost:5000/auto_login

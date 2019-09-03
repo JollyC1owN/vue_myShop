@@ -10,7 +10,11 @@ export const reqAddress = (longitude, latitude) => ajax({
 })
 
 // 获取食品分类列表
-export const reqGetCategorys = () => ajax.get(BASE + '/index_category')
+export const reqGetCategorys = () => ajax.get(BASE + '/index_category', {
+  headers: {
+    needToken: true //做为一个标识，告诉请求拦截器，我需要
+  }
+})
 
 
 // 根据经纬度获取商铺列表
@@ -20,6 +24,9 @@ export const reqGetShops = ({ latitude, longitude }) => ajax({
   params: {
     latitude,
     longitude
+  },
+  headers: {
+    needToken: true //做为一个标识，告诉请求拦截器，我需要
   }
 })
 
@@ -35,3 +42,12 @@ export const reqPwdLogin = ({ name, pwd, captcha }) => ajax.post(BASE + '/login_
 
 // 手机号和短信验证码登录
 export const reqSmsLogin = (phone, code) => ajax.post(BASE + '/login_sms', { phone, code })
+
+
+// 自动登录请求
+export const reqAutoLogin = () => ajax({
+  url: BASE + '/auto_login',
+  headers: {
+    needToken: true
+  }
+})
