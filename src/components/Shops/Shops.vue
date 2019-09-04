@@ -210,12 +210,12 @@ export default {
                 .delivery_left
                   color #fff
                   margin-right -10px
-                  background-color #02a774
-                  border 1px solid #02a774
+                  background-color #ff6700
+                  border 1px solid #ff6700
 
                 .delivery_right
-                  color #02a774
-                  border 1px solid #02a774
+                  color #ff6700
+                  border 1px solid #ff6700
 
             .shop_distance
               clearFix()

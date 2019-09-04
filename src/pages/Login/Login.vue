@@ -229,7 +229,7 @@ export default {
       .login_logo
         font-size 40px
         font-weight bold
-        color #02a774
+        color #ff6700
         text-align center
 
       .login_header_title
@@ -247,9 +247,9 @@ export default {
             margin-right 40px
 
           &.on
-            color #02a774
+            color #ff6700
             font-weight 700
-            border-bottom 2px solid #02a774
+            border-bottom 2px solid #ff6700
 
     .login_content
       >form
@@ -270,7 +270,7 @@ export default {
             font 400 14px Arial
 
             &:focus
-              border 1px solid #02a774
+              border 1px solid #ff6700
 
           .login_message
             position relative
@@ -322,7 +322,7 @@ export default {
                   color #ddd
 
               &.on
-                background #02a774
+                background #ff6700
 
               >.switch_circle
                 // transform translateX(27px)
@@ -347,7 +347,7 @@ export default {
             line-height 20px
 
             >a
-              color #02a774
+              color #ff6700
 
         .login_submit
           display block

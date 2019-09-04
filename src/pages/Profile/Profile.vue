@@ -144,7 +144,7 @@ export default {
       clearFix()
       position relative
       display block
-      background #02a774
+      background #ff6700
       padding 20px 10px
 
       .profile_image
@@ -268,7 +268,7 @@ export default {
           font-size 30px
 
         .icon-order-s
-          color #02a774
+          color #ff6700
 
         .icon-jifen
           color #ff5f3e
@@ -277,7 +277,7 @@ export default {
           color #f90
 
         .icon-fuwu
-          color #02a774
+          color #ff6700
 
       .my_order_div
         width 100%

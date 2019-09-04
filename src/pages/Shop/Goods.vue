@@ -2,9 +2,15 @@
   <div>
     <div class="goods">
       <div class="menu-wrapper" ref="left">
-        <ul>
-          <!-- current -->
-          <li class="menu-item" v-for="good in goods" :key="good.name">
+        <ul ref="leftUl">
+          <!-- current currentIndex-->
+          <li
+            class="menu-item"
+            :class="{current:currentIndex===index}"
+            v-for="(good,index) in goods"
+            :key="good.name"
+            @click="selectItem(index)"
+          >
             <span class="text bottom-border-1px">
               <img class="icon" v-if="good.icon" :src="good.icon" />
               {{good.name}}
@@ -14,7 +20,7 @@
       </div>
 
       <div class="foods-wrapper" ref="right">
-        <ul>
+        <ul ref="rightUl">
           <li class="food-list-hook" v-for="good in goods" :key="good.name">
             <h1 class="title">{{good.name}}</h1>
             <ul>
@@ -33,7 +39,9 @@
                     <span class="now">￥{{food.price}}</span>
                     <span class="old" v-if="food.oldPrice">￥{{food.oldPrice}}</span>
                   </div>
-                  <div class="cartcontrol-wrapper">CartControl组件</div>
+                  <div class="cartcontrol-wrapper">
+                    <CartControl :food="food" />
+                  </div>
                 </div>
               </li>
             </ul>
@@ -49,17 +57,95 @@ import { mapState } from 'vuex'
 import BScroll from 'better-scroll'
 export default {
   name: 'Goods',
+  data() {
+    return {
+      // 右侧列表滑动的y轴坐标，初始为0.在滑动的过程中实时改变的
+      scorllY: 0,
+      // 右侧所有分类li的top组成的数组，在列表显示之后统计一次即可
+      tops: []
+    }
+  },
+  mounted() {
+    // 如果数据已经有了
+    if (this.goods.length > 0) {
+      this._initScroll()
+      this._initTops()
+    }
+  },
+
   computed: {
     ...mapState({
       goods: state => state.shop.goods
-    })
+    }),
+    //当前分类的下标
+    currentIndex() {
+      const { scorllY, tops } = this
+      // 计算得到的新的下标
+      const index = tops.findIndex(
+        (top, index) => scorllY >= top && scorllY < tops[index + 1]
+      )
+      // 先比较，发现不同才保存
+      if (index != this.index && this.leftScroll) {
+        this.index = index
+        // 让左侧滑动到对应的li
+        const li = this.$refs.leftUl.children[index]
+        this.leftScroll.scrollToElement(li, 500)
+      }
+      return index
+    }
   },
-  components: {},
+
   watch: {
+    // 没有数据，后来有了
     goods() {
       this.$nextTick(() => {
-        new BScroll(this.$refs.left, {}), new BScroll(this.$refs.right, {})
+        this._initScroll()
+        this._initTops()
       })
+    }
+  },
+  methods: {
+    // methods中放的都是事件的回调函数，下面的方法并不是，所以加一个_做为标识
+    _initScroll() {
+      this.leftScroll = new BScroll(this.$refs.left, {
+        // 允许分发点击事件
+        click: true
+      })
+      this.rightScroll = new BScroll(this.$refs.right, {
+        probeType: 1, //触发时机：触摸，实时
+        // probeType: 2    //触发时机：触摸，实时
+        // probeType: 3 //触发时机：触摸、惯性、编码，实时  触发频率高
+        click: true
+      })
+      // 给rightScroll绑定scroll的监听
+      this.rightScroll.on('scroll', ({ x, y }) => {
+        this.scorllY = Math.abs(y)
+      })
+      this.rightScroll.on('scrollEnd', ({ x, y }) => {
+        this.scorllY = Math.abs(y)
+      })
+    },
+    // 设置左侧滑动区的显示
+    selectItem(index) {
+      const top = this.tops[index]
+      // 立即更新scrollY值:解决点击后，右侧滑动停止之后才会显示左侧的高亮
+      this.scorllY = top
+      // 让右侧列表滑到对应位置编码滑动
+      // 毫秒为单位
+      this.rightScroll.scrollTo(0, -top, 500)
+    },
+    // 初始化tops的初始值
+    _initTops() {
+      const tops = []
+      let top = 0
+      tops.push(top)
+      const lis = this.$refs.rightUl.children
+      Array.prototype.forEach.call(lis, li => {
+        top += li.clientHeight
+        tops.push(top)
+      })
+      // 更新tops数据
+      this.tops = tops
     }
   }
 }
@@ -94,7 +180,7 @@ export default {
         z-index 10
         margin-top -1px
         background #fff
-        color #02a774
+        color #ff6700
         font-weight 700
 
         .text

@@ -15,14 +15,14 @@
     "bulletin": "是以粥为特色的中式营养快餐，自2004年10月18日创立“嘉和一品”品牌至今，不断优化管理，积极创新，立足于“贴近百姓生活，服务千家万户”",
     "supports": [
       {
-        "type": 1,
-        "name": "满减",
-        "content": "满35减19，满65减35"
-      },
-      {
         "type": 0,
         "name": "首单",
         "content": "新用户下单立减17元(不与其它活动同享)"
+      },
+      {
+        "type": 1,
+        "name": "满减",
+        "content": "满35减19，满65减35"
       },
       {
         "type": 2,
@@ -106,7 +106,7 @@
             }
           ],
           "icon": "http://fuss10.elemecdn.com/8/a6/453f65f16b1391942af11511b7a90jpeg.jpeg?imageView2/1/w/114/h/114",
-          "image": "http://fuss10.elemecdn.com/xxx/a6/453f65f16b1391942af11511b7a90jpeg.jpeg?imageView2/1/w/750/h/750",
+          "image": "http://fuss10.elemecdn.com/8/a6/453f65f16b1391942af11511b7a90jpeg.jpeg?imageView2/1/w/750/h/750",
           "images": [
             "http://fuss10.elemecdn.com/8/a6/453f65f16b1391942af11511b7a90jpeg.jpeg?imageView2/1/w/750/h/750",
             "http://fuss10.elemecdn.com/8/a6/453f65f16b1391942af11511b7a90jpeg.jpeg?imageView2/1/w/750/h/750",
@@ -1155,12 +1155,15 @@
     {
       "username": "2******3",
       "rateTime": 1469271264000,
+      "deliveryTime": "",
       "score": 4,
       "rateType": 0,
       "deliveryTime": "",
       "text": "服务态度不错",
       "avatar": "http://static.galileo.xiaojukeji.com/static/tms/default_header.png",
-      "recommend": ["扁豆焖面"]
+      "recommend": [
+        "扁豆焖面"
+      ]
     },
     {
       "username": "3******b",
@@ -1239,7 +1242,9 @@
       "rateType": 0,
       "text": "孩子喜欢吃这家",
       "avatar": "http://static.galileo.xiaojukeji.com/static/tms/default_header.png",
-      "recommend": ["南瓜粥"]
+      "recommend": [
+        "南瓜粥"
+      ]
     },
     {
       "username": "3******3",

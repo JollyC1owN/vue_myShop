@@ -42,7 +42,7 @@ export default {
 
     >button
       display inline-block
-      background #02a774
+      background #ff6700
       font-size 14px
       color #fff
       border 0

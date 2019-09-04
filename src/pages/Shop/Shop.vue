@@ -57,7 +57,7 @@ export default {
       position relative
 
       &.router-link-active
-        color #02a774
+        color #ff6700
 
         &::after
           content ''
@@ -67,5 +67,5 @@ export default {
           width 35px
           height 2px
           transform translateX(-50%)
-          background #02a774
+          background #ff6700
 </style>

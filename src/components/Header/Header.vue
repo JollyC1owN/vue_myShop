@@ -25,7 +25,7 @@ export default {
 
 <style lang="stylus" rel="stylesheet/stylus" scoped>
 .header
-  background-color #02a774
+  background-color #ff6700
   position fixed
   z-index 100
   left 0

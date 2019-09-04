@@ -8,3 +8,10 @@ export const RESET_TOKEN = 'reset_token' // 退出登录清空当前登录用户
 export const RECEIVE_GOODS = 'receive_goods' // 商品列表
 export const RECEIVE_RATINGS = 'receive_ratings' // 商家评价列表
 export const RECEIVE_INFO = 'receive_info' // 商家信息
+
+
+export const ADD_FOOD_COUNT = 'add_food_count' // 增加数量
+export const REDUCE_FOOD_COUNT = 'reduce_food_count' // 减少数量
+
+
+

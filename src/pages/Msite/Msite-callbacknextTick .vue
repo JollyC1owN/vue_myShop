@@ -153,5 +153,5 @@ export default {
 
       .swiper-pagination
         >span.swiper-pagination-bullet-active
-          background #02a774
+          background #ff6700
 </style>

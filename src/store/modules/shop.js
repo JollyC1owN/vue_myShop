@@ -1,5 +1,5 @@
 /* 管理商家shop功能模块相关的状态数据的vuex模块 */
-
+import Vue from 'vue'
 import {
   reqShopGoods,
   reqShopRatings,
@@ -9,13 +9,15 @@ import {
 import {
   RECEIVE_GOODS,
   RECEIVE_RATINGS,
-  RECEIVE_INFO
+  RECEIVE_INFO,
+  ADD_FOOD_COUNT,
+  REDUCE_FOOD_COUNT
 } from '../mutayion-types'
 
 const state = {
   goods: [],//商品列表
   ratings: [],//商家评价列表
-  info: {}//商家信息
+  info: {},//商家信息
 }
 const mutations = {
   // mock
@@ -28,6 +30,24 @@ const mutations = {
   [RECEIVE_INFO] (state, info) {
     state.info = info
   },
+  [ADD_FOOD_COUNT] (state, { food }) {
+    if (food.count) {
+      food.count++
+    } else {
+      // 给food添加一个属性，属性名是count
+      // 新添加的数据没有数据绑定，在页面中不会更新
+      // food.count = 1
+      // 为响应式对象添加一个属性，确保新属性也是响应式的，并且能够触发视图更新
+      Vue.set(food, 'count', 1)
+    }
+  },
+  [REDUCE_FOOD_COUNT] (state, { food }) {
+    // 不用判断小于0，因为小于0的时候，减的按钮就消失了
+    // 判断大于0是避免连续点击多次，会一闪而过 -1 -2。。。
+    if (food.count > 0) {
+      food.count--
+    }
+  }
 }
 const actions = {
   /* mock的操作 */
@@ -63,7 +83,15 @@ const actions = {
       commit(RECEIVE_INFO, info)
       typeof callback === 'function' && callback()
     }
-  }
+  },
+  // 增加或者减少购物的数量
+  updateFoodCount ({ commit }, { isAdd, food }) {
+    if (isAdd) {
+      commit(ADD_FOOD_COUNT, { food })
+    } else {
+      commit(REDUCE_FOOD_COUNT, { food })
+    }
+  },
 }
 const getters = {}
 
