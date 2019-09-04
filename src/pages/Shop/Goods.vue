@@ -48,6 +48,7 @@
           </li>
         </ul>
       </div>
+      <ShopCart />
     </div>
   </div>
 </template>
@@ -55,6 +56,7 @@
 <script>
 import { mapState } from 'vuex'
 import BScroll from 'better-scroll'
+import ShopCart from '../../components/ShopCart/ShopCart'
 export default {
   name: 'Goods',
   data() {
@@ -65,6 +67,7 @@ export default {
       tops: []
     }
   },
+
   mounted() {
     // 如果数据已经有了
     if (this.goods.length > 0) {
@@ -104,6 +107,7 @@ export default {
       })
     }
   },
+
   methods: {
     // methods中放的都是事件的回调函数，下面的方法并不是，所以加一个_做为标识
     _initScroll() {
@@ -147,6 +151,10 @@ export default {
       // 更新tops数据
       this.tops = tops
     }
+  },
+
+  components: {
+    ShopCart
   }
 }
 </script>

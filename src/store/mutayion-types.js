@@ -12,6 +12,7 @@ export const RECEIVE_INFO = 'receive_info' // 商家信息
 
 export const ADD_FOOD_COUNT = 'add_food_count' // 增加数量
 export const REDUCE_FOOD_COUNT = 'reduce_food_count' // 减少数量
+export const CLEAR_CART = 'clear_cart' // 清空购物车
 
 
 
