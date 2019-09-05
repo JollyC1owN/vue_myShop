@@ -120,23 +120,25 @@ export default {
   methods: {
     // methods中放的都是事件的回调函数，下面的方法并不是，所以加一个_做为标识
     _initScroll() {
-      this.leftScroll = new BScroll(this.$refs.left, {
-        // 允许分发点击事件
-        click: true
-      })
-      this.rightScroll = new BScroll(this.$refs.right, {
-        probeType: 1, //触发时机：触摸，实时
-        // probeType: 2    //触发时机：触摸，实时
-        // probeType: 3 //触发时机：触摸、惯性、编码，实时  触发频率高
-        click: true
-      })
-      // 给rightScroll绑定scroll的监听
-      this.rightScroll.on('scroll', ({ x, y }) => {
-        this.scorllY = Math.abs(y)
-      })
-      this.rightScroll.on('scrollEnd', ({ x, y }) => {
-        this.scorllY = Math.abs(y)
-      })
+      if (!this.leftScroll) {
+        this.leftScroll = new BScroll(this.$refs.left, {
+          // 允许分发点击事件
+          click: true
+        })
+        this.rightScroll = new BScroll(this.$refs.right, {
+          probeType: 1, //触发时机：触摸，实时
+          // probeType: 2    //触发时机：触摸，实时
+          // probeType: 3 //触发时机：触摸、惯性、编码，实时  触发频率高
+          click: true
+        })
+        // 给rightScroll绑定scroll的监听
+        this.rightScroll.on('scroll', ({ x, y }) => {
+          this.scorllY = Math.abs(y)
+        })
+        this.rightScroll.on('scrollEnd', ({ x, y }) => {
+          this.scorllY = Math.abs(y)
+        })
+      }
     },
     // 设置左侧滑动区的显示
     selectItem(index) {
