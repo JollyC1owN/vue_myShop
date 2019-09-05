@@ -1,7 +1,7 @@
 <template>
   <section class="profile">
     <!-- 头部 -->
-    <Header title="我的"></Header>
+    <Header title="个人中心"></Header>
     <section class="profile-number" @click="$router.push(user._id ? '/userdetail':'/login')">
       <a href="javascript:" class="profile-link">
         <div class="profile_image">

@@ -6,7 +6,7 @@
         <i class="iconfont icon-sousuo"></i>
       </span>
       <span class="header_login" slot="right">
-        <span class="header_login_text">登录|注册</span>
+        <span class="header_login_text">{{user.name?user.name:(user.phone?user.phone:"登录|注册")}}</span>
       </span>
     </Header>
     <!--首页导航-->
@@ -62,7 +62,8 @@ export default {
     // 第二种写法
     ...mapState({
       address: state => state.msite.address,
-      categorys: state => state.msite.categorys
+      categorys: state => state.msite.categorys,
+      user: state => state.user.user
     }),
     /* 分类的二维数组
         小数组的最大长度为8
