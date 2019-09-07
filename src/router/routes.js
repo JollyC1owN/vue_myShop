@@ -1,3 +1,7 @@
+// import Msite from '../pages/Msite/Msite.vue'
+// import Order from '../pages/Order/Order.vue'
+// import Profile from '../pages/Profile/Profile.vue'
+// import Search from '../pages/Search/Search.vue'
 import Msite from '../pages/Msite/Msite.vue'
 import Order from '../pages/Order/Order.vue'
 import Profile from '../pages/Profile/Profile.vue'
@@ -7,6 +11,7 @@ import Shop from '../pages/Shop/Shop.vue'
 import Goods from '../pages/Shop/Goods.vue'
 import Ratings from '../pages/Shop/Ratings.vue'
 import Info from '../pages/Shop/Info.vue'
+import Userdetail from '../pages/Userdetail/Userdetail.vue'
 export default [
   {
     path: '/msite',
@@ -40,6 +45,10 @@ export default [
   {
     path: '/login',
     component: Login
+  },
+  {
+    path: '/userdetail',
+    component: Userdetail
   },
   {
     path: '/shop',
