@@ -68,7 +68,21 @@
         })
       })
     })
-	
+		在actions中对应的action函数中，在commit之后调用该函数。
+	 // 获取分类列表的数组
+	async getCategorys ({ commit }, callback) {
+		// 1、发送异步请求数据
+		const result = await reqGetCategorys()
+		if (result.code === 0) {
+		  const categorys = result.data
+		  // 2、拿到数据更新state中的数据
+          commit(RECEIVE_CATEGORYS, categorys)
+         // 在commit之后，因为commit更新数据，
+         // 在数据更新之后调用，类似于watch
+         // 严格来说传了个函数，并且存在。再调用。防止没有报错
+         typeof callback === 'function' && callback()
+    }
+  },
 	3、利用dispatch返回的promise，promise对象是在状态更新切界面更新之后才产生promise成功的结果
 	// 利用：dispatch返回的是一个promise对象
 	// promise对象是在状态更新切界面更新之后才产生promise成功的结果
@@ -84,21 +98,7 @@
 			}
 		})
 	},
-	在actions中对应的action函数中，在commit之后调用该函数。
-	 // 获取分类列表的数组
-	async getCategorys ({ commit }, callback) {
-		// 1、发送异步请求数据
-		const result = await reqGetCategorys()
-		if (result.code === 0) {
-		  const categorys = result.data
-		  // 2、拿到数据更新state中的数据
-          commit(RECEIVE_CATEGORYS, categorys)
-         // 在commit之后，因为commit更新数据，
-         // 在数据更新之后调用，类似于watch
-         // 严格来说传了个函数，并且存在。再调用。防止没有报错
-         typeof callback === 'function' && callback()
-    }
-  },
+
   
 ####控制台报错：touch事件原因：使用第三方库：swiper轮播图滑动的时候
 	Unable to preventDefault inside passive event listener due to target being treated as passive.
